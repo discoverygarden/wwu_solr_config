@@ -20,15 +20,29 @@
   <xsl:template match="oai_dc:dc">
     <xsl:param name="prefix">dc.</xsl:param>
     <xsl:param name="suffix"></xsl:param>
-    <!-- Create fields for the set of selected elements, named according to the 'local-name' and containing the 'text' -->
+    <!-- Create fields for the set of selected elements, named according to the
+         'local-name' and containing the 'text' -->
     <xsl:for-each select="./*">
-
       <field>
         <xsl:attribute name="name">
           <xsl:value-of select="concat($prefix, local-name(), $suffix)"/>
         </xsl:attribute>
         <xsl:value-of select="text()"/>
       </field>
+      <xsl:if test="self::dc:date">
+        <xsl:variable name="date">
+          <xsl:call-template name="get_ISO8601_edtf_date">
+            <xsl:with-param name="date" select="normalize-space(text())"/>
+            <xsl:with-param name="datastream">DC</xsl:with-param>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:if test="not(normalize-space($date)='')">
+          <field>
+            <xsl:attribute name="name">dc_date_edtf_mdt</xsl:attribute>
+            <xsl:value-of select="$date"/>
+          </field>
+        </xsl:if>
+      </xsl:if>
     </xsl:for-each>
 
   </xsl:template>
