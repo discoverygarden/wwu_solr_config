@@ -29,7 +29,7 @@
         </xsl:attribute>
         <xsl:value-of select="text()"/>
       </field>
-      <xsl:if test="local-name()='date'">
+      <xsl:if test="self::dc:date">
         <xsl:variable name="date">
           <xsl:call-template name="get_ISO8601_edtf_date">
             <xsl:with-param name="date" select="normalize-space(text())"/>
