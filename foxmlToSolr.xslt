@@ -117,13 +117,11 @@
   <xsl:include href="/usr/local/fedora/tomcat/webapps/fedoragsearch/WEB-INF/classes/fgsconfigFinal/index/FgsIndex/islandora_transforms/vtt_solr.xslt"/>
   <xsl:include href="/usr/local/fedora/tomcat/webapps/fedoragsearch/WEB-INF/classes/fgsconfigFinal/index/FgsIndex/islandora_transforms/library/xslt-date-template.xslt"/>
   <xsl:include href="/usr/local/fedora/tomcat/webapps/fedoragsearch/WEB-INF/classes/fgsconfigFinal/index/FgsIndex/islandora_transforms/library/xslt-edtf-date-template.xslt"/>
-  <!--  Used for indexing other objects.
+  <!--  Used for indexing other objects.-->
   <xsl:include href="/usr/local/fedora/tomcat/webapps/fedoragsearch/WEB-INF/classes/fgsconfigFinal/index/FgsIndex/islandora_transforms/library/traverse-graph.xslt"/>
-  -->
   <!-- Used to index the list of collections to which an object belongs.
-    Requires the "traverse-graph.xslt" bit as well.
+    Requires the "traverse-graph.xslt" bit as well.-->
   <xsl:include href="/usr/local/fedora/tomcat/webapps/fedoragsearch/WEB-INF/classes/fgsconfigFinal/index/FgsIndex/islandora_transforms/hierarchy.xslt"/>
-  -->
 
   <!-- Decide which objects to modify the index of -->
   <xsl:template match="/">
@@ -280,7 +278,6 @@
         reindexing all the descendents whenever indexing an object
         (updating a collection label would be fairly expensive if we blindly
         reindexed). -->
-      <!--
       <xsl:variable name="ancestors">
         <xsl:call-template name="get-ancestors">
           <xsl:with-param name="PID" select="$PID" />
@@ -290,7 +287,6 @@
       <xsl:for-each select="xalan:nodeset($ancestors)//sparql:obj[@uri != concat('info:fedora/', $PID)]">
         <field name="ancestors_ms"><xsl:value-of select="substring-after(@uri, '/')"/></field>
       </xsl:for-each>
-      -->
 
     </doc>
   </xsl:template>
