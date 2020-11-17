@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- ORALHISTORIES TRANSCRIPT -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:foxml="info:fedora/fedora-system:def/foxml#" xmlns:dcterms="http://purl.org/dc/terms/">
-    <xsl:template match="foxml:datastream[@ID='TRANSCRIPT']/foxml:datastreamVersion[last()][not(@MIMETYPE='text/vtt')]" name="index_TRANSCRIPT">
+    <xsl:template match="foxml:datastream[@ID='TRANSCRIPT']/foxml:datastreamVersion[last()][@MIMETYPE='text/xml']" name="index_TRANSCRIPT">
         <xsl:param name="content"/>
         <xsl:param name="prefix">or_</xsl:param>
         <xsl:param name="solespeaker" select="$content//solespeaker"></xsl:param>
