@@ -4,7 +4,9 @@
     xmlns:java="http://xml.apache.org/xalan/java"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns:foxml="info:fedora/fedora-system:def/foxml#"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" exclude-result-prefixes="rdf java">
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:islandora-rels-ext="http://islandora.ca/ontology/relsext#"
+    exclude-result-prefixes="rdf java">
 
     <xsl:variable name="single_valued_hashset_for_rels_ext" select="java:java.util.HashSet.new()"/>
 
@@ -39,12 +41,14 @@
       <xsl:param name="prefix"/>
       <xsl:param name="suffix"/>
 
-      <xsl:call-template name="rels_ext_fields">
-        <xsl:with-param name="prefix" select="$prefix"/>
-        <xsl:with-param name="suffix" select="$suffix"/>
-        <xsl:with-param name="type">literal</xsl:with-param>
-        <xsl:with-param name="value" select="text()"/>
-      </xsl:call-template>
+      <xsl:if test="not(self::islandora-rels-ext:* and starts-with(local-name(), 'isSequenceNumberOf'))">
+        <xsl:call-template name="rels_ext_fields">
+          <xsl:with-param name="prefix" select="$prefix"/>
+          <xsl:with-param name="suffix" select="$suffix"/>
+          <xsl:with-param name="type">literal</xsl:with-param>
+          <xsl:with-param name="value" select="text()"/>
+        </xsl:call-template>
+      </xsl:if>
     </xsl:template>
 
     <!-- Fork between fields without and with the namespace URI in the field
